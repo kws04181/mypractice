@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
 
 function App() {
+  const [minutes, setMinutes] = useState();
+  const onChange = (event) => {
+    setMinutes(event.target.value);
+  };
+  const reset = () => setMinutes(0);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <h1 className='hi'>Super Converter</h1>
+      <div>
+        <label htmlFor='minutes'>Minutes:</label>
+        <input
+          value={minutes}
+          id='minutes'
+          placeholder='Minutes'
+          type="number"
+          onChange={onChange}
+        />
+      </div>
+
+      <div>
+        <label htmlFor='hours'>Hours:</label>
+        <input
+          value={Math.round(minutes / 60)}
+          id='hours'
+          placeholder='Hours'
+          type="number"
+          disabled
+        />
+      </div>
+      <button onClick={reset}>Reset</button>
+    </div >
   );
 }
 
