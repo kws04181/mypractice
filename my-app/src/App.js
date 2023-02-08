@@ -1,36 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 
 function App() {
-  const [minutes, setMinutes] = useState();
-  const onChange = (event) => {
-    setMinutes(event.target.value);
-  };
-  const reset = () => setMinutes(0);
+  const [counter, setCounter] = useState(0);
+  const [keyword, setKeyword] = useState("");
+  const onClick = () => setCounter((prev) => prev + 1);
+  const onChange = (e) => setKeyword(e.target.value);
+  useEffect(() => {
+    console.log("I run only once.");
+  }, [])
+  useEffect(() => {
+    if (keyword !== "" && keyword.length > 5) {
+      console.log("I run when 'keyword' changes.");
+    }
+  }, [keyword]);
+  useEffect(() => {
+    console.log("I run when 'counter' changes.");
+  }, [counter]);
+  useEffect(() => {
+    console.log("I run when keyword & counter change");
+  }, [keyword, counter]);
   return (
-    <div className="App">
-      <h1 className='hi'>Super Converter</h1>
-      <div>
-        <label htmlFor='minutes'>Minutes:</label>
-        <input
-          value={minutes}
-          id='minutes'
-          placeholder='Minutes'
-          type="number"
-          onChange={onChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='hours'>Hours:</label>
-        <input
-          value={Math.round(minutes / 60)}
-          id='hours'
-          placeholder='Hours'
-          type="number"
-          disabled
-        />
-      </div>
-      <button onClick={reset}>Reset</button>
+    <div>
+      <input
+        value={keyword}
+        onChange={onChange}
+        type="text"
+        placeholder="Seactch here..."
+      />
+      <h1>{counter}</h1>
+      <button onClick={onClick}>click me</button>
     </div >
   );
 }
